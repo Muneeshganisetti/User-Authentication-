@@ -21,8 +21,8 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;//for 200 sucees valiadtion;
 
 //ResponseEntity is used to wirite status code when we use json data
-//@Controller //for html views
-@RestController //for json only
+
+@Controller //for html views
 @RequestMapping("/api")
 public class UserController {
     @Autowired
