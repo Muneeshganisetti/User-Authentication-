@@ -22,9 +22,9 @@ public class ResetPasswordController {
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request)throws Exception {
         try {
             String response = service.resetPassword(request);
-            return ResponseEntity.ok().body("Reset password Success");
+            return ResponseEntity.ok().body("rest password successful"+ response);
         } catch (Exception e) {
-            return ResponseEntity.status(404).body("reset password failed");
+            return ResponseEntity.status(404).body("reset password failed"+ e.getMessage());
         }
     }
     }

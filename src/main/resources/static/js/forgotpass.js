@@ -5,7 +5,7 @@
      const messageDiv = document.getElementById("forgotMsg");
 
      try {
-         const response = await fetch("/api/forgotpass", {
+         const response = await fetch("http://localhost:8081/api/forgotpass", {
              method: "POST",
              headers: { "Content-Type": "application/json" },
              body: JSON.stringify({ email: email })
