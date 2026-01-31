@@ -30,6 +30,11 @@ public class ResetPasswordService {
 
 
     public String resetPassword(ResetPasswordRequest request) throws Exception {
+
+
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            return "password do not match";
+        }
         Optional<ForgotPasswordTransistiom> token = repository.findByToken(request.getToken());
         if (token.isEmpty()) {
             return "Token is not present";
@@ -52,9 +57,9 @@ public class ResetPasswordService {
         userrepository.save(user);
 
 
-        entity.setStatus("USED"); // or TokenStatus.USED if using Enum
+        entity.setStatus("USED"); // or TokenStatus.USED if using Enummy
         repository.save(entity); // save the updated entity
 
-      return "password reset done";
+        return "password reset done";
     }
-    }
+}

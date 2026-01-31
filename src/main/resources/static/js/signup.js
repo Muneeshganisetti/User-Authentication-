@@ -4,6 +4,7 @@
      document.getElementById('signupForm').addEventListener('submit', async function (e) {
          e.preventDefault();
 
+
          const payload = {
              firstname: document.getElementById('firstname').value,
              lastname: document.getElementById('lastname').value,

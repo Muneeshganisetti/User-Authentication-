@@ -5,6 +5,7 @@ import com.muneesh.entity.Users;
 import com.muneesh.repository.*;
 import com.muneesh.security.*;
 import com.muneesh.project1.*;
+import jodd.typeconverter.impl.StringArrayConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 public class Userservice {
     @Autowired
     private Userrepository userrepository;
+    @Autowired
+    private Jwt jwt;
 
     public String signup(SignupRequest request) throws Exception {
         if (userrepository.findByEmail(request.getEmail()).isPresent()) {
@@ -51,7 +54,7 @@ public class Userservice {
         user.setToken_Expiry(expiry);
         userrepository.save(user);
 
-        String token = Jwt.generateToken(user.getEmail(), user.getRole(), expiry);
+       String token= jwt.generateToken(user.getEmail(), user.getRole(), expiry);
         return new Loginresponse("login succesful", token);
 
     }
@@ -72,7 +75,7 @@ public class Userservice {
         long expiry = System.currentTimeMillis() + (10 * 60 * 1000);
         user.setToken_Expiry(expiry);
         userrepository.save(user);
-        String token = Jwt.generateToken(user.getEmail(), user.getRole(), expiry);
+        String token = jwt.generateToken(user.getEmail(), user.getRole(), expiry);
         return new Loginresponse("Admin login successful", token);
 
     }

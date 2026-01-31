@@ -27,6 +27,8 @@ import static org.springframework.http.ResponseEntity.ok;//for 200 sucees valiad
 public class UserController {
     @Autowired
     private Userservice service;
+    @Autowired
+    private Jwt jwt;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest request, BindingResult bresult) throws Exception {
@@ -70,7 +72,7 @@ public class UserController {
                 return ResponseEntity.status(401).body("Missing or invalid token");
             }
             String token = Authorization.substring(7);
-            if (!Jwt.validateToken(token)) {
+            if (Boolean.parseBoolean(jwt.validateToken(token))) {
                 return ResponseEntity.status(401).body("Invalid or Expired Token");
             }
             String role = Jwt.extractRole(token);
