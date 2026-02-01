@@ -17,9 +17,9 @@ public class RedisService {
 
 
     public void setLogin(String email, String sessionId) {
-        RMap<String,String> set = redissonClient.getMap("bucket 1");
-        set.put(email,sessionId);
-        log.info("id saved in reids{}{}",email,sessionId);
+        RBucket<String> set = redissonClient.getBucket(email);
+        set.set(sessionId);
+        log.info("id saved in reids{}",sessionId);
     }
 
     public String getLogin(String email) {
